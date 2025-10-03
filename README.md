@@ -1,133 +1,98 @@
-
-# Emotion Classifier Project
-
-## Goal
-Build a small AI/ML project to classify emotions in text. The project demonstrates:
-- Loading and preprocessing text data
-- Exploratory data analysis
-- Training and evaluating models
-- Making predictions on new text
-
-This project is designed to show end-to-end workflow for a text classification task using Python and scikit-learn.
-
----
+Emotion Classifier NLP Project
+ Summary:
+I built a small NLP project that predicts emotions from text. I cleaned and explored the dataset, trained and compared two models (Logistic Regression and Naive Bayes), and deployed a Flask API for real-time predictions. This demonstrates my skills in data preprocessing, machine learning, model evaluation, and API deployment. The project is simple, but end-to-end, showing practical understanding of an ML workflow.
+ 
+The workflow includes:  
+1. Loading and cleaning text data  
+2. Exploring the dataset  
+3. Training two models (Logistic Regression and Naive Bayes)  
+4. Evaluating models using accuracy, precision, recall, F1-score, and confusion matrices  
+5. Making predictions via a CLI script or a Flask API  
 
 ## Dataset
-- **Source:** [Kaggle Emotion Dataset](https://www.kaggle.com/datasets/praveengovi/emotions-dataset-for-nlp)
-- Contains multiple emotions such as: joy, sadness, anger, fear, love, surprise
-- Training samples: 16,000+  
-- Validation and test sets included  
-- Minimum 2–5 categories: ✅
 
----
+- Source: [Kaggle Emotion Dataset](https://www.kaggle.com/datasets/praveengovi/emotions-dataset-for-nlp)  
+- Number of samples: 16,000 (training set)  
+- Categories: `joy`, `sadness`, `anger`, `fear`, `love`, `surprise`  
+
+The dataset is publicly available and contains sentences labeled with multiple emotions. 
 
 ## Project Structure
-
 emotion-classifier/
-├─ data/ # Raw dataset files (train.txt, test.txt, val.txt)
-├─ src/ # Source code
-│ ├─ preprocess.py # Data cleaning and preprocessing
-│ ├─ explore.py # Exploratory analysis and statistics
-│ ├─ train.py # Model training, evaluation, and saving models
-│ ├─ predict.py # Script to predict emotion for new sentences
-│ └─ app.py #  Flask API for predictions
-├─ venv/ # Python virtual environment
-├─ model.pkl # Saved trained model (Logistic Regression)
-├─ vectorizer.pkl # Saved TF-IDF vectorizer
-└─ README.md # Project description
+│
+├─ data/  Contains train.txt, test.txt, val.txt
+├─ src/
+│ ├─ preprocess.py  Text cleaning and preprocessing
+│ ├─ explore.py  Exploratory analysis and plots
+│ ├─ train.py  Model training and evaluation
+│ ├─ predict.py  CLI script to predict emotion for input text
+│ └─ app.py  Flask API for emotion prediction
+├─ venv/  Python virtual environment
+├─ model.pkl  Saved Logistic Regression model
+├─ vectorizer.pkl  Saved TF-IDF vectorizer
+└─ README.md  This file
 
 
----
+1. Install dependencies
 
-## Features Implemented
-
-1. **Data Preparation**
-   - Loaded and inspected dataset
-   - Cleaned text (lowercase, remove punctuation, remove stopwords)
-   - Added `clean_text` column for preprocessed sentences
-
-2. **Exploratory Analysis**
-   - Checked number of samples per emotion category
-   - Identified most frequent words per category (optional visualization)
-   - Ensured balanced dataset for training
-
-3. **Model Training**
-   - Used **TF-IDF vectorizer** for feature extraction
-   - Compared **Logistic Regression** and **Naive Bayes**
-   - Split dataset into training and test sets
-   - Evaluated models with **accuracy, precision, recall, F1-score**
-   - Saved the best model and vectorizer for predictions
-
-4. **Prediction**
-   - Script `predict.py` accepts a sentence and outputs the predicted emotion
-   - Example usage:
-
-```python
-from predict import predict_emotion
-
-sentence = "I feel amazing today!"
-predicted_emotion = predict_emotion(sentence)
-print(predicted_emotion)  # Output: joy
-
-How to Run
-
-Create virtual environment and activate:
-
-python -m venv venv
-venv\Scripts\activate
-
-
-Install required packages:
+Make sure your virtual environment is active:
 
 pip install -r requirements.txt
+Required libraries: pandas, nltk, scikit-learn, matplotlib, seaborn, flask, joblib, requests
 
+2. Preprocess & Explore Data
+python src/explore.py
+This will show:
 
-Preprocess data:
+-Total samples and per-emotion counts
+-Most common words in the dataset
+-Bar plots for label distribution and word frequencies
 
-python src\preprocess.py
+3. Train Models
+python src/train.py
 
+-Splits data into train and test sets
+-Trains Logistic Regression and Naive Bayes models
+-Evaluates models with precision, recall, F1-score, and confusion matrices
+-Saves the best model (model.pkl) and TF-IDF vectorizer (vectorizer.pkl)
 
-Explore data (optional):
+Model Comparison:
+-logistic Regression: Accuracy 0.79 – better balanced across emotions
+-Naive Bayes: Accuracy 0.66 – less consistent
 
-python src\explore.py
+4. Predict Using CLI
+python src/predict.py
+Enter any sentence to see the predicted emotion
+Type exit to quit
 
+5. Predict Using Flask API
+python src/app.py
 
-Train model:
+Runs the API at: http://127.0.0.1:5000
+Example request using Postman or curl:
+curl -X POST http://127.0.0.1:5000/predict \
+-H "Content-Type: application/json" \
+-d '{"text":"I feel amazing today!"}'
+Sample Response:
+{
+  "text": "I feel amazing today!",
+  "predicted_emotion": "joy"
+}
 
-python src\train.py
+Python test script:
+python src/test_api.py
 
+Features Implemented
+Data Cleaning: Lowercase, remove punctuation, remove stopwords
+Exploratory Analysis: Show dataset statistics and most common words
+Model Training: Logistic Regression and Naive Bayes with TF-IDF vectorizer
+Evaluation: Classification reports and confusion matrices
+Prediction: CLI and Flask API
+Bonus: TF-IDF vectorization, model comparison, confusion matrix visualization
 
-Predict new sentences:
+Contact
+Developer: Ardolina Ziberi
+GitHub: github.com/ArdolinaZ/emotion-classifier
 
-python src\predict.py
-
-Model Performance
-Model	Accuracy	Notes
-Logistic Regression	79%	Best performing
-Naive Bayes	66%	Lower accuracy, good baseline
-
-Classification reports and confusion matrices are printed during training.
-
-Optional Bonus Features (Not Required)
-
-TF-IDF vectorization used instead of raw bag-of-words
-
-Compared two models to select the best one
-
-Flask API (app.py) available for serving predictions
-
-Confusion matrix visualization available in explore.py
-
-Conclusion
-
-This project demonstrates the full workflow for a text classification task:
-
-Data cleaning & preprocessing
-
-Exploratory data analysis
-
-Model training & evaluation
-
-Making predictions on new sentences
-
-It is suitable for showcasing ML skills and Python proficiency in an internship application.
+Developer: Ardolina Ziberi
+GitHub: github.com/yourusername/emotion-classifier

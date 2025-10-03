@@ -90,9 +90,6 @@ Evaluation: Classification reports and confusion matrices
 Prediction: CLI and Flask API
 Bonus: TF-IDF vectorization, model comparison, confusion matrix visualization
 
-Contact
-Developer: Ardolina Ziberi
-GitHub: github.com/ArdolinaZ/emotion-classifier
 
 Developer: Ardolina Ziberi
 GitHub: github.com/yourusername/emotion-classifier
